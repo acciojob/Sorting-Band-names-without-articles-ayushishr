@@ -1,39 +1,15 @@
-//your code here
-//your code here
-//your code here
-let bandNames = ['The Rolling Stones', 'Led Zeppelin', 'The Beatles', 'Pink Floyd'];
+const bands = ["The Rolling Stones", "Pink Floyd", "The Beatles", "Led Zeppelin", "Nirvana"];
 
-// Function to remove articles from a band name
-function removeArticles(name) {
-// Define the list of articles to be removed
-const articles = ['a', 'an', 'the'];
-
-// Split the band name into words
-const words = name.split(' ');
-
-// Filter out the articles from the words array
-const filteredWords = words.filter(word => !articles.includes(word.toLowerCase()));
-
-// Join the filtered words to form the modified band name
-const modifiedName = filteredWords.join(' ');
-
-return modifiedName;
+function stripArticle(name) {
+  return name.replace(/^(a |an |the )/i, "").trim();
 }
 
-// Sort the band names in lexicographic order, excluding articles
-bandNames.sort((a, b) => {
-const nameA = removeArticles(a);
-const nameB = removeArticles(b);
-return nameA.localeCompare(nameB);
+const sortedBands = bands.sort((a, b) => stripArticle(a) > stripArticle(b) ? 1 : -1);
+
+// Render the sorted band names without articles
+const ul = document.querySelector("ul");
+sortedBands.forEach(band => {
+  const li = document.createElement("li");
+  li.textContent = band;
+  ul.appendChild(li);
 });
-
-// Get the <ul> element by its id
-const bandList = document.getElementById('band');
-
-// Iterate over the sorted band names and create <li> elements
-for (let i = 0; i < bandNames.length; i++) {
-const li = document.createElement('li');
-li.textContent = bandNames[i];
-bandList.appendChild(li);
-}
-
